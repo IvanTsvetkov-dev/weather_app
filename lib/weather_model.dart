@@ -1,20 +1,20 @@
 class Weather {
-  final int city;
-  final int temp;
-  final String title;
+  final String city;
+  final double temp;
+  final String weather;
 
   const Weather({
     required this.city,
     required this.temp,
-    required this.title,
+    required this.weather
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     return 
         Weather(
-          city: json["city"]["id"],
-          temp: json["city"]["id"],
-          title: json["city"]["name"],
+          city: json["name"],
+          temp: json["main"]["temp"],
+          weather: json["weather"][0]["main"]
         );
   }
 }

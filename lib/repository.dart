@@ -6,14 +6,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherRepo {
-  static const String url = 'http://api.openweathermap.org/data/2.5/forecast?id=498817&appid=';
+  static const String url = 'https://api.openweathermap.org/data/2.5/weather?';
   final String apiKey;
 
   WeatherRepo(this.apiKey);
 
-  Future<Weather> getWeahter() async {
-    final response = await http.get(Uri.parse('$url$apiKey'));
-
+  Future<Weather> getWeahter(String city) async {
+    final response = await http.get(Uri.parse('${url}q=$city&units=metric&appid=$apiKey'));
     if (response.statusCode == 200) {
       return Weather.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
     } else {
@@ -30,8 +29,9 @@ class WeatherRepo {
     //получили права
     Position geo =  await Geolocator.getCurrentPosition();
     //получаем название геолокации
-    List<Placemark> placemarks = await placemarkFromCoordinates(52.2165157, 6.9437819);
-    return placemarks[0].locality.toString(); //получаем название
 
+    List<Placemark> placemarks = await placemarkFromCoordinates(geo.latitude, geo.longitude);
+
+    return placemarks[0].locality ?? "";
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/repository.dart';
 import 'package:flutter_weather/weather_model.dart';
+import 'package:lottie/lottie.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,20 +32,21 @@ class WeatherPage extends StatefulWidget {
 class _WeatherPageState extends State<WeatherPage> {
   final weatherRep = WeatherRepo("aefa4af1f91b5563898989f6c95f6696");
   Weather? weatherr;
-  String? city;
-
 
   featchInfo() async {
-    final cityy = await weatherRep.getCity();
-    setState(() {
-      city = cityy;
-    });
-
-
-    final weather = await weatherRep.getWeahter();
-    setState(() {
-      weatherr = weather;
-    });
+    //final String city= await weatherRep.getCity();
+    // setState(() {
+    // });
+    try {
+      final weather = await weatherRep
+          .getWeahter("Ярославль"); //latitude - широта, longitude - долгота
+      setState(() {
+        weatherr = weather;
+        print(weather.city);
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -59,8 +61,30 @@ class _WeatherPageState extends State<WeatherPage> {
     return Scaffold(
         body: Center(
       child: Column(
-        children: [Text(weatherr!.title)],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            weatherr?.city ?? "load..",
+          ),
+          Lottie.asset(weatherAnim(weatherr?.weather.toString())),
+          Text('${weatherr?.temp.round()}°C')
+        ],
       ),
     ));
+  }
+  String weatherAnim(String? condition){
+    if(condition== null){
+      return "assets/load.json";
+    }
+    switch(condition.toLowerCase()){
+      case 'snow':
+        return "assets/snow.json";
+      case 'sunny':
+        return "assets/sunny.json";
+      case 'clear':
+        return "assets/clear.json";
+      default:
+        return "assets/load.json";
+    }
   }
 }
