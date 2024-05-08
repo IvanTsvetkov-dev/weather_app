@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/repository.dart';
+import 'package:flutter_weather/weather_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,18 +29,38 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  late WeatherRepo weatherRepo;
+  final weatherRep = WeatherRepo("aefa4af1f91b5563898989f6c95f6696");
+  Weather? weatherr;
+  String? city;
+
+
+  featchInfo() async {
+    final cityy = await weatherRep.getCity();
+    setState(() {
+      city = cityy;
+    });
+
+
+    final weather = await weatherRep.getWeahter();
+    setState(() {
+      weatherr = weather;
+    });
+  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
+    featchInfo();
   }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
         body: Center(
-      child: Column(children: [],),
+      child: Column(
+        children: [Text(weatherr!.title)],
+      ),
     ));
   }
 }
