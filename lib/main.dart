@@ -83,6 +83,16 @@ class _WeatherPageState extends State<WeatherPage> {
         return "assets/sunny.json";
       case 'clear':
         return "assets/clear.json";
+      case 'thunderstorm': //гроза
+        return "assets/clear.json";
+      case 'drizzle': //моросит дождь
+        return "assets/drizzle.json";
+      case 'rain':
+        return "assets/rain.json";
+      case 'mist':
+        return "assets/mist.json";
+      case 'clouds':
+        return "assets/clouds.json";
       default:
         return "assets/load.json";
     }
