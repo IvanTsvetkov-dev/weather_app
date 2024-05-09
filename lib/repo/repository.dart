@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_weather/weather_model.dart';
+import 'package:flutter_weather/models/weather_model.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
