@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 class CustomTheme with ChangeNotifier {
   static bool _isDarkTheme = false;
   ThemeMode get currentTheme => _isDarkTheme ? ThemeMode.dark : ThemeMode.light;
+  set theme(bool isDark){
+    if(isDark == true){
+      _isDarkTheme = true;
+    }
+    else{
+      _isDarkTheme = false;
+    }
+  }
 
   void toggleTheme() {
     _isDarkTheme = !_isDarkTheme;
@@ -16,6 +24,13 @@ class CustomTheme with ChangeNotifier {
           color: Color.fromRGBO(164, 153, 179, 1),
           iconTheme: IconThemeData(color: Color.fromRGBO(27, 23, 37, 1))),
       fontFamily: 'Montserrat',
+      textTheme: const TextTheme(
+        bodyMedium: TextStyle(
+          fontFamily: 'Montserrat',
+          fontSize: 16,
+          fontWeight: FontWeight.bold
+        )
+      )
     );
   }
 
@@ -27,6 +42,14 @@ class CustomTheme with ChangeNotifier {
           iconTheme: IconThemeData(color: Colors.amber)
         ),
         fontFamily: 'Montserrat',
+        textTheme: const TextTheme(
+        bodyMedium: TextStyle(
+          fontFamily: 'Montserrat',
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.grey
+        )
+      )
         );
   }
 }
