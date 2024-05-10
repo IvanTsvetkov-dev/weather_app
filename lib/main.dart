@@ -25,7 +25,8 @@ class _MyAppState extends State {
       setState(() {});
     });
     super.initState();
-    //getPersonPreferences();
+
+    getPersonPreferences();
   }
 
   @override
@@ -39,14 +40,13 @@ class _MyAppState extends State {
     );
   }
 
-  // getPersonPreferences() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   if(prefs.getBool("theme") ?? false){
-  //     prefs.setBool("theme", true);
-  //     return;
-  //   }
-  //   currentTheme.theme = (prefs.getBool("theme") ?? false);
-  // }
+  Future<void> getPersonPreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isDark = prefs.getBool("theme") ?? false;
+    setState(() {
+      currentTheme.theme = isDark;
+    });
+  }
 }
 
 class WeatherPage extends StatefulWidget {
@@ -95,6 +95,8 @@ class _WeatherPageState extends State<WeatherPage> {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
                   }
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  changeTheme(currentTheme.getIsDarkTheme);
+
                 },
                 icon: iconTheme)
           ],
@@ -112,6 +114,10 @@ class _WeatherPageState extends State<WeatherPage> {
             ],
           ),
         ));
+  }
+  Future<void> changeTheme(bool isDark) async{
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("theme", isDark);
   }
 
   String weatherAnim(String? condition) {
