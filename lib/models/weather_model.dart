@@ -2,11 +2,15 @@ class Weather {
   final String city;
   final double temp;
   final String weather;
+  final int windSpeed;
+  final int windDirect;
 
   const Weather({
     required this.city,
     required this.temp,
-    required this.weather
+    required this.weather,
+    required this.windSpeed,
+    required this.windDirect
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
@@ -14,7 +18,9 @@ class Weather {
         Weather(
           city: json["name"],
           temp: json["main"]["temp"],
-          weather: json["weather"][0]["main"]
+          weather: json["weather"][0]["main"],
+          windSpeed: json["wind"]["speed"],
+          windDirect: json["wind"]["deg"]
         );
   }
 }

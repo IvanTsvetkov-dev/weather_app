@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_weather/models/weather_model.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -26,12 +25,8 @@ class WeatherRepo {
     if (permission == LocationPermission.denied){ //если в правах отказано, тогда отправить запрос на получение прав.
       permission = await Geolocator.requestPermission();
     }
-    //получили права
     Position geo =  await Geolocator.getCurrentPosition();
-    //получаем название геолокации
-
     List<Placemark> placemarks = await placemarkFromCoordinates(geo.latitude, geo.longitude);
-
     return placemarks[0].locality ?? "";
   }
 }

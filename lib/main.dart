@@ -25,7 +25,6 @@ class _MyAppState extends State {
       setState(() {});
     });
     super.initState();
-
     getPersonPreferences();
   }
 
@@ -58,8 +57,7 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   final weatherRep = WeatherRepo("aefa4af1f91b5563898989f6c95f6696");
-  SnackBar snackBar =
-      const SnackBar(content: Text("Saved your theme preferences!"));
+  SnackBar snackBar = const SnackBar(content: Text("Saved your theme preferences!"));
   Icon iconTheme = const Icon(Icons.brightness_2_rounded);
   Weather? weatherr;
 
@@ -68,8 +66,7 @@ class _WeatherPageState extends State<WeatherPage> {
     // setState(() {
     // });
     try {
-      final weather = await weatherRep
-          .getWeahter("Ярославль"); //latitude - широта, longitude - долгота
+      final weather = await weatherRep.getWeahter("Ярославль");
       setState(() {
         weatherr = weather;
       });
@@ -96,7 +93,6 @@ class _WeatherPageState extends State<WeatherPage> {
                   }
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   changeTheme(currentTheme.getIsDarkTheme);
-
                 },
                 icon: iconTheme)
           ],
@@ -110,11 +106,13 @@ class _WeatherPageState extends State<WeatherPage> {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               Lottie.asset(weatherAnim(weatherr?.weather.toString())),
-              Text('${weatherr?.temp.round()}°C', style: Theme.of(context).textTheme.bodyMedium)
+              Text('${weatherr?.temp.round() ?? ''}°C', style: Theme.of(context).textTheme.bodyMedium),
+              Text('${weatherr?.windSpeed ?? ''} m/s, ${determineWindDirection(weatherr?.windDirect)}')
             ],
           ),
         ));
   }
+
   Future<void> changeTheme(bool isDark) async{
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool("theme", isDark);
@@ -131,9 +129,9 @@ class _WeatherPageState extends State<WeatherPage> {
         return "assets/sunny.json";
       case 'clear':
         return "assets/clear.json";
-      case 'thunderstorm': //гроза
+      case 'thunderstorm':
         return "assets/clear.json";
-      case 'drizzle': //моросит дождь
+      case 'drizzle':
         return "assets/drizzle.json";
       case 'rain':
         return "assets/rain.json";
@@ -145,4 +143,78 @@ class _WeatherPageState extends State<WeatherPage> {
         return "assets/load.json";
     }
   }
+
+  String? determineWindDirection(int? deg){
+    if(deg == null){
+      return '';
+    }
+    switch(deg){
+      case 1:
+        if(deg >= 0 && deg < 22.5) {
+          return 'Nord';
+        }
+      case 2:
+        if(deg >= 22.5 && deg < 45) {
+          return 'NNE';
+        }
+      case 3:
+        if(deg >= 45 && deg < 67.5) {
+          return 'NE';
+        }
+      case 4:
+        if(deg >= 67.5 && deg < 90) {
+          return 'ENE';
+        }
+      case 5:
+        if(deg >= 90 && deg < 112.5) {
+          return 'Est';
+        }
+      case 6:
+        if(deg >= 112.5 && deg < 135) {
+          return 'ESE';
+        }
+      case 7:
+        if(deg >= 135 && deg < 157.5) {
+          return 'SE';
+        }
+      case 8:
+        if(deg >= 157.5 && deg < 180) {
+          return 'SSE';
+        }
+      case 9:
+        if(deg >= 180 && deg < 202.5) {
+          return 'Sid';
+        }
+      case 10:
+        if(deg >= 202.5 && deg < 225) {
+          return 'SSW';
+        }
+      case 11:
+        if(deg >= 225 && deg < 247.5) {
+          return 'SW';
+        }
+      case 12:
+        if(deg >= 247.5 && deg < 270) {
+          return 'WSW';
+        }
+      case 13:
+        if(deg >= 270 && deg < 292.5) {
+          return 'W';
+        }
+      case 14:
+        if(deg >= 292.5 && deg < 315) {
+          return 'WNW';
+        }
+      case 15:
+        if(deg >= 315 && deg < 337.5) {
+          return 'NW';
+        }
+      case 16:
+        if(deg >= 337.5 && deg <= 360) {
+          return 'NNW';
+        }
+    }
+
+  }
+
 }
