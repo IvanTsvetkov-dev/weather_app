@@ -18,7 +18,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State {
-
   @override
   void initState() {
     currentTheme.addListener(() {
@@ -57,7 +56,8 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   final weatherRep = WeatherRepo("aefa4af1f91b5563898989f6c95f6696");
-  SnackBar snackBar = const SnackBar(content: Text("Saved your theme preferences!"));
+  SnackBar snackBar =
+      const SnackBar(content: Text("Saved your theme preferences!"));
   Icon iconTheme = const Icon(Icons.brightness_2_rounded);
   Weather? weatherr;
 
@@ -74,6 +74,7 @@ class _WeatherPageState extends State<WeatherPage> {
       print(e);
     }
   }
+
   @override
   void initState() {
     super.initState();
@@ -107,13 +108,14 @@ class _WeatherPageState extends State<WeatherPage> {
               ),
               Lottie.asset(weatherAnim(weatherr?.weather.toString())),
               Text('${weatherr?.temp.round() ?? ''}°C', style: Theme.of(context).textTheme.bodyMedium),
-              Text('${weatherr?.windSpeed ?? ''} m/s, ${determineWindDirection(weatherr?.windDirect)}')
+              Text(
+                  '${weatherr?.windSpeed.round() ?? ''} m/s, ${determineWindDirection(weatherr?.windDirect)}')
             ],
           ),
         ));
   }
 
-  Future<void> changeTheme(bool isDark) async{
+  Future<void> changeTheme(bool isDark) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool("theme", isDark);
   }
@@ -144,77 +146,58 @@ class _WeatherPageState extends State<WeatherPage> {
     }
   }
 
-  String? determineWindDirection(int? deg){
+  String determineWindDirection(double? deg) {
     if(deg == null){
       return '';
     }
-    switch(deg){
-      case 1:
-        if(deg >= 0 && deg < 22.5) {
-          return 'Nord';
-        }
-      case 2:
-        if(deg >= 22.5 && deg < 45) {
-          return 'NNE';
-        }
-      case 3:
-        if(deg >= 45 && deg < 67.5) {
-          return 'NE';
-        }
-      case 4:
-        if(deg >= 67.5 && deg < 90) {
-          return 'ENE';
-        }
-      case 5:
-        if(deg >= 90 && deg < 112.5) {
-          return 'Est';
-        }
-      case 6:
-        if(deg >= 112.5 && deg < 135) {
-          return 'ESE';
-        }
-      case 7:
-        if(deg >= 135 && deg < 157.5) {
-          return 'SE';
-        }
-      case 8:
-        if(deg >= 157.5 && deg < 180) {
-          return 'SSE';
-        }
-      case 9:
-        if(deg >= 180 && deg < 202.5) {
-          return 'Sid';
-        }
-      case 10:
-        if(deg >= 202.5 && deg < 225) {
-          return 'SSW';
-        }
-      case 11:
-        if(deg >= 225 && deg < 247.5) {
-          return 'SW';
-        }
-      case 12:
-        if(deg >= 247.5 && deg < 270) {
-          return 'WSW';
-        }
-      case 13:
-        if(deg >= 270 && deg < 292.5) {
-          return 'W';
-        }
-      case 14:
-        if(deg >= 292.5 && deg < 315) {
-          return 'WNW';
-        }
-      case 15:
-        if(deg >= 315 && deg < 337.5) {
-          return 'NW';
-        }
-      case 16:
-        if(deg >= 337.5 && deg <= 360) {
-          return 'NNW';
-        }
+    if (deg >= 0 && deg < 22.5) {
+      return 'Nord';
     }
-
+    if (deg >= 22.5 && deg < 45) {
+      return 'NNE';
+    }
+    if (deg >= 45 && deg < 67.5) {
+      return 'NE';
+    }
+    if (deg >= 67.5 && deg < 90) {
+      return 'ENE';
+    }
+    if (deg >= 90 && deg < 112.5) {
+      return 'Est';
+    }
+    if (deg >= 112.5 && deg < 135) {
+      return 'ESE';
+    }
+    if (deg >= 135 && deg < 157.5) {
+      return 'SE';
+    }
+    if (deg >= 157.5 && deg < 180) {
+      return 'SSE';
+    }
+    if (deg >= 180 && deg < 202.5) {
+      return 'Sid';
+    }
+    if (deg >= 202.5 && deg < 225) {
+      return 'SSW';
+    }
+    if (deg >= 225 && deg < 247.5) {
+      return 'SW';
+    }
+    if (deg >= 247.5 && deg < 270) {
+      return 'WSW';
+    }
+    if (deg >= 270 && deg < 292.5) {
+      return 'W';
+    }
+    if (deg >= 292.5 && deg < 315) {
+      return 'WNW';
+    }
+    if (deg >= 315 && deg < 337.5) {
+      return 'NW';
+    }
+    if (deg >= 337.5 && deg <= 360) {
+      return 'NNW';
+    }
+    return '';
   }
-
 }
