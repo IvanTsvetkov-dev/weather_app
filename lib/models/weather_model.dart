@@ -2,8 +2,8 @@ class Weather {
   final String city;
   final double temp;
   final String weather;
-  final double windSpeed;
-  final double windDirect;
+  final dynamic windSpeed;
+  final dynamic windDirect;
 
   const Weather({
     required this.city,

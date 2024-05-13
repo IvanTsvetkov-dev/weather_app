@@ -71,7 +71,6 @@ class _WeatherPageState extends State<WeatherPage> {
         weatherr = weather;
       });
     } catch (e) {
-      print(e);
     }
   }
 
@@ -79,6 +78,7 @@ class _WeatherPageState extends State<WeatherPage> {
   void initState() {
     super.initState();
     featchInfo();
+
   }
 
   @override
@@ -108,8 +108,7 @@ class _WeatherPageState extends State<WeatherPage> {
               ),
               Lottie.asset(weatherAnim(weatherr?.weather.toString())),
               Text('${weatherr?.temp.round() ?? ''}°C', style: Theme.of(context).textTheme.bodyMedium),
-              Text(
-                  '${weatherr?.windSpeed.round() ?? ''} m/s, ${determineWindDirection(weatherr?.windDirect)}')
+              Text('${weatherr?.windSpeed.round() ?? ''} m/s, ${determineWindDirection(weatherr?.windDirect)}'),
             ],
           ),
         ));
@@ -146,7 +145,7 @@ class _WeatherPageState extends State<WeatherPage> {
     }
   }
 
-  String determineWindDirection(double? deg) {
+  String determineWindDirection(var deg) {
     if(deg == null){
       return '';
     }
