@@ -1,16 +1,10 @@
 # flutter_weather
 
-A new Flutter project.
+![image](https://github.com/user-attachments/assets/94ae6297-b3c5-499f-9e66-028c3585e0a9)
+![image](https://github.com/user-attachments/assets/a33a5597-9903-469a-be12-498179025ef6)
+## Итог:
+1. Приложение на flutter, которое взаимодействует с сервисом погоды по API
+2. С помощью пакета shared_preferences реализован функционал сохранения темы(тёмная или светлая)
+3. Пакет geolocator для обнаружения местоположения
+4. Отображаются простые lottie анимации в зависимости от погоды 
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
